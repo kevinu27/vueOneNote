@@ -1,5 +1,34 @@
-<script setup>
+<script>
 import { RouterLink, RouterView } from 'vue-router'
+
+import { taskStore } from './stores/tasks';
+
+export default {
+  data() {
+    return {
+      tasks: [],
+    }
+  },
+
+  computed: {
+    tasksStore() {
+      return taskStore();
+    },
+  },
+  
+  methods: {
+
+  },
+  mounted() {
+    console.log('Component Mounted')
+    this.tasksStore.loadLocalStorageTask()
+    console.log('this.tasksStore', this.tasksStore.tasks)
+    
+
+
+  },
+}
+
 </script>
 
 <template>
@@ -10,7 +39,6 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
-
     </div>
   </header>
 

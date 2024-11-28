@@ -1,5 +1,5 @@
 <script>
-import { useFormStore } from '../stores/tasks';
+import { taskStore } from '../stores/tasks';
 
 export default {
   data() {
@@ -13,7 +13,7 @@ export default {
 
   computed: {
     formStore() {
-      return useFormStore();
+      return taskStore();
     },
   },
   
@@ -24,13 +24,12 @@ export default {
       this.formStore.description = this.formData.description;
 
       // Log the form data to console
-      console.log('Form Data:', this.formData);
-
-      // Save to LocalStorage
-      // localStorage.setItem('formData', JSON.stringify(this.formData));
+      console.log('Form Data:', this.formData)
 
       // Call store's submit action (optional)
-      this.formStore.submitForm(this.formData);
+      this.formStore.submitTaskForm(this.formData)
+      this.formData.title = ''
+      this.formData.description = ''
     },
   },
 }

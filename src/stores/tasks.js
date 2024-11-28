@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-export const useFormStore = defineStore('task', {
+export const taskStore = defineStore('task', {
   state: () => ({
     title: '',
     description: '',
@@ -18,13 +18,25 @@ export const useFormStore = defineStore('task', {
       this.description = newMessage
     },
 
-    submitForm(formData) {
+    submitTaskForm(formData) {
       console.log('Submitted Data:::::', { title: this.title, description: this.description })
       this.tasks.push({ title: this.title, description: this.description })
       console.log('this.tasks.push en el store', this.tasks)
       const tasks = JSON.stringify(this.tasks)
       console.log('stringgyfiction', tasks)
       localStorage.setItem('formData', tasks)
+    },
+    loadLocalStorageTask() {
+      const dataToLoadJSON = localStorage.getItem("formData")
+      const dataToLoad = JSON.parse(dataToLoadJSON);
+
+      if(dataToLoad.length > 0){
+        this.tasks = dataToLoad
+      }else{
+        this.tasks = []
+      }
+      console.log('this.tasks---', this.tasks)
+
     },
   },
 });
